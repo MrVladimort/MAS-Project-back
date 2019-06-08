@@ -12,15 +12,18 @@ import org.springframework.stereotype.Service;
 import pl.pjatk.mas.project.boundary.dto.*;
 import pl.pjatk.mas.project.control.dao.AdminDAO;
 import pl.pjatk.mas.project.control.dao.ClientDAO;
+import pl.pjatk.mas.project.control.dao.RoleDAO;
 import pl.pjatk.mas.project.control.entity.AdminEntity;
 import pl.pjatk.mas.project.control.entity.ClientEntity;
-import pl.pjatk.mas.project.control.entity.UserEntity;
-import pl.pjatk.mas.project.control.entity.enums.UserRole;
+import pl.pjatk.mas.project.control.entity.RoleEntity;
+import pl.pjatk.mas.project.control.entity.enums.Role;
 import pl.pjatk.mas.project.control.mapper.ProjectMapper;
 import pl.pjatk.mas.project.control.security.JwtTokenProvider;
 import pl.pjatk.mas.project.control.security.UserPrincipal;
 import pl.pjatk.mas.project.control.service.AuthService;
+import pl.pjatk.mas.project.controller.exceptions.EntityNotFoundException;
 
+import java.util.Collections;
 import java.util.UUID;
 
 @Service
@@ -29,6 +32,7 @@ import java.util.UUID;
 public class AuthServiceImpl implements AuthService {
     @NonNull ClientDAO clientDao;
     @NonNull AdminDAO adminDao;
+    @NonNull RoleDAO roleDao;
     @NonNull AuthenticationManager authenticationManager;
     @NonNull JwtTokenProvider tokenProvider;
     @NonNull private ProjectMapper mapper;
@@ -71,7 +75,11 @@ public class AuthServiceImpl implements AuthService {
         log.info("Register data: {}", registerDto);
         ClientEntity clientEntity = mapper.clientEntityFromDto(registerDto);
         clientEntity.setPassword(passwordEncoder.encode(clientEntity.getPassword()));
-        clientEntity.setRole(UserRole.CLIENT);
+
+        RoleEntity clientRole = roleDao.findByName(Role.CLIENT)
+                .orElseThrow(EntityNotFoundException::new);
+
+        clientEntity.setRoles(Collections.singleton(clientRole));
 
         clientEntity = clientDao.save(clientEntity);
 
@@ -88,7 +96,11 @@ public class AuthServiceImpl implements AuthService {
         log.info("Register data: {}", registerDto);
         AdminEntity adminEntity = mapper.adminEntityFromDto(registerDto);
         adminEntity.setPassword(passwordEncoder.encode(adminEntity.getPassword()));
-        adminEntity.setRole(UserRole.ADMIN);
+        RoleEntity adminRole = roleDao.findByName(Role.ADMIN)
+                .orElseThrow(EntityNotFoundException::new);
+
+        adminEntity.setRoles(Collections.singleton(adminRole));
+
         adminEntity.setIdentifier(UUID.randomUUID().toString());
 
         adminEntity = adminDao.save(adminEntity);

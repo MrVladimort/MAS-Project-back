@@ -1,10 +1,10 @@
 package pl.pjatk.mas.project.control.entity;
 
 import lombok.*;
-import pl.pjatk.mas.project.control.entity.enums.UserRole;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,13 +27,18 @@ public abstract class UserEntity extends PersonEntity {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "USER_ROLE")
-    private UserRole role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity(String name, String surname, String email, String password, UserRole role) {
+    public UserEntity(String name, String surname, String email, String password, Set<RoleEntity> roles) {
         super(name, surname);
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
+
+
 }

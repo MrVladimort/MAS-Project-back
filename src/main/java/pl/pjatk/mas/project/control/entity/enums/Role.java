@@ -1,6 +1,6 @@
 package pl.pjatk.mas.project.control.entity.enums;
 
-public enum UserRole {
+public enum Role {
     ADMIN,
     CLIENT
 }

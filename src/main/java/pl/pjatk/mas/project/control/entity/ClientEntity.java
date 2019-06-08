@@ -1,8 +1,6 @@
 package pl.pjatk.mas.project.control.entity;
 
 import lombok.*;
-import org.springframework.core.annotation.Order;
-import pl.pjatk.mas.project.control.entity.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -50,8 +48,8 @@ public class ClientEntity extends UserEntity {
     private Set<OrderEntity> orders = new HashSet<>();
 
     @Builder
-    public ClientEntity(String name, String surname, String email, String password, UserRole role, String phone, String address, Set<AttenderEntity> attenders, Set<PromotionEntity> promotions, Set<OrderEntity> orders) {
-        super(name, surname, email, password, role);
+    public ClientEntity(String name, String surname, String email, String password, Set<RoleEntity> roles, String phone, String address, Set<AttenderEntity> attenders, Set<PromotionEntity> promotions, Set<OrderEntity> orders) {
+        super(name, surname, email, password, roles);
         this.phone = phone;
         this.address = address;
         this.attenders = attenders;

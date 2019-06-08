@@ -2,17 +2,24 @@ package pl.pjatk.mas.project.boundary.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
 public class RegisterDTO {
+    @NotBlank
     private String name;
+    @NotBlank
     private String surname;
+    @NotBlank
     private String email;
     private String phone;
+    @NotBlank
     private String password;
+    @NotBlank
     private String repeatPassword;
 
     @Builder

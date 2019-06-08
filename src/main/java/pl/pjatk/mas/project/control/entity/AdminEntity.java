@@ -1,10 +1,10 @@
 package pl.pjatk.mas.project.control.entity;
 
 import lombok.*;
-import pl.pjatk.mas.project.control.entity.enums.UserRole;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,8 +18,8 @@ public class AdminEntity extends UserEntity {
     private String identifier;
 
     @Builder
-    public AdminEntity(String name, String surname, String email, String password, UserRole role, String identifier) {
-        super(name, surname, email, password, role);
+    public AdminEntity(String name, String surname, String email, String password, Set<RoleEntity> roles, String identifier) {
+        super(name, surname, email, password, roles);
         this.identifier = identifier;
     }
 }
