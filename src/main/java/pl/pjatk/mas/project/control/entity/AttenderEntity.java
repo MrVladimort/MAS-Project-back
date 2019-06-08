@@ -1,6 +1,7 @@
 package pl.pjatk.mas.project.control.entity;
 
 import lombok.*;
+import pl.pjatk.mas.project.control.entity.enums.DocumentType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,12 +11,13 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 @NoArgsConstructor
-@Table(name = "ATTENDERS")
+@AllArgsConstructor
 @Entity
-public class Attender extends Person {
+public class AttenderEntity extends PersonEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ATTENDER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ATTENDER_SQ")
+    @SequenceGenerator(name = "ATTENDER_SQ", sequenceName = "ATTENDERS_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "BIRTHDATE", nullable = false)
@@ -28,14 +30,8 @@ public class Attender extends Person {
     @Column(name = "DOCUMENT_TYPE", nullable = false)
     private DocumentType street;
 
-    public enum DocumentType {
-        PASSPORT,
-        ID_CARD,
-        DRIVER_LICENCE
-    }
-
     @Builder
-    public Attender(String name, String surname, LocalDate birthdate, String documentNumber, DocumentType street) {
+    public AttenderEntity(String name, String surname, LocalDate birthdate, String documentNumber, DocumentType street) {
         super(name, surname);
         this.birthdate = birthdate;
         this.documentNumber = documentNumber;

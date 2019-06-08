@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.pjatk.ipb.project.control.entity.UserEntity;
+import pl.pjatk.mas.project.control.entity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

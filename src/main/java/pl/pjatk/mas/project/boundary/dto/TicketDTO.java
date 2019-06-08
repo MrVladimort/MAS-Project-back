@@ -1,7 +1,7 @@
 package pl.pjatk.mas.project.boundary.dto;
 
 import lombok.*;
-import pl.pjatk.mas.project.control.entity.Ticket;
+import pl.pjatk.mas.project.control.entity.enums.TicketType;
 
 @Getter
 @Setter
@@ -12,5 +12,5 @@ import pl.pjatk.mas.project.control.entity.Ticket;
 public class TicketDTO {
     private Double price;
     private Integer placeNumber;
-    private Ticket.TicketType type;
+    private TicketType type;
 }

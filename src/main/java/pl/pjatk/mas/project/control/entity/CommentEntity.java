@@ -8,15 +8,16 @@ import javax.validation.constraints.Min;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @NoArgsConstructor
-@Table(name = "COMMENTS")
+@AllArgsConstructor
 @Entity
-public class Comment {
+public class CommentEntity  extends AuditingEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "COMMENT_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMMENT_SQ")
+    @SequenceGenerator(name = "COMMENT_SQ", sequenceName = "COMMENTS_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "TEXT", unique = true)
@@ -28,7 +29,7 @@ public class Comment {
     private Integer grade;
 
     @Builder
-    public Comment(String text, @Min(1) @Max(5) Integer grade) {
+    public CommentEntity(String text, @Min(1) @Max(5) Integer grade) {
         this.text = text;
         this.grade = grade;
     }

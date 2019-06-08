@@ -6,11 +6,12 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-abstract class Person {
+@MappedSuperclass
+abstract class PersonEntity extends AuditingEntity {
     @Column(name = "NAME", nullable = false)
     private String name;
 

@@ -6,15 +6,16 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @NoArgsConstructor
-@Table(name = "LOCALIZATIONS")
+@AllArgsConstructor
 @Entity
-public class Localization {
+public class LocalizationEntity  extends AuditingEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "LOCALIZATION_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOCALIZATION_SQ")
+    @SequenceGenerator(name = "LOCALIZATION_SQ", sequenceName = "LOCALIZATIONS_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "NAME", unique = true)
@@ -30,7 +31,7 @@ public class Localization {
     private String buildingNumber;
 
     @Builder
-    public Localization(String text, String city, String street, String buildingNumber) {
+    public LocalizationEntity(String text, String city, String street, String buildingNumber) {
         this.text = text;
         this.city = city;
         this.street = street;

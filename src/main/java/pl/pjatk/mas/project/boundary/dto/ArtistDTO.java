@@ -1,9 +1,8 @@
 package pl.pjatk.mas.project.boundary.dto;
 
 import lombok.*;
-import pl.pjatk.mas.project.control.entity.Artist;
-
-import javax.persistence.Column;
+import pl.pjatk.mas.project.control.entity.ArtistEntity;
+import pl.pjatk.mas.project.control.entity.enums.ArtistType;
 
 @Getter
 @Setter
@@ -14,5 +13,5 @@ import javax.persistence.Column;
 public class ArtistDTO {
     private String name;
     private String style;
-    private Artist.ArtistType type;
+    private ArtistType type;
 }

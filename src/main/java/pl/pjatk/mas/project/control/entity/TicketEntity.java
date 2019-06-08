@@ -1,20 +1,22 @@
 package pl.pjatk.mas.project.control.entity;
 
 import lombok.*;
+import pl.pjatk.mas.project.control.entity.enums.TicketType;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @NoArgsConstructor
-@Table(name = "TICKETS")
+@AllArgsConstructor
 @Entity
-public class Ticket {
+public class TicketEntity extends AuditingEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "TICKET_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TICKET_SQ")
+    @SequenceGenerator(name = "TICKET_SQ", sequenceName = "TICKETS_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "PLACE_NUMBER", nullable = false)
@@ -27,12 +29,8 @@ public class Ticket {
     @Column(name = "PRICE", nullable = false)
     private Double price;
 
-    public enum TicketType {
-        VIP, REGULAR, FAN_ZONE
-    }
-
     @Builder
-    public Ticket(Integer placeNumber, TicketType type, Double price) {
+    public TicketEntity(Integer placeNumber, TicketType type, Double price) {
         this.placeNumber = placeNumber;
         this.type = type;
         this.price = price;

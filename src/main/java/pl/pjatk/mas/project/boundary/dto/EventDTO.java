@@ -1,7 +1,8 @@
 package pl.pjatk.mas.project.boundary.dto;
 
 import lombok.*;
-import pl.pjatk.mas.project.control.entity.Event;
+import pl.pjatk.mas.project.control.entity.EventEntity;
+import pl.pjatk.mas.project.control.entity.enums.EventType;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class EventDTO {
     private String name;
     private LocalDateTime dateTime;
-    private Event.EventType type;
+    private EventType type;
     private Integer placeCount;
     private LocalizationDTO localization;
 }

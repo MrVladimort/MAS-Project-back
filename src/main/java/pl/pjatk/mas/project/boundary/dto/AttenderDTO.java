@@ -1,7 +1,8 @@
 package pl.pjatk.mas.project.boundary.dto;
 
 import lombok.*;
-import pl.pjatk.mas.project.control.entity.Attender;
+import pl.pjatk.mas.project.control.entity.AttenderEntity;
+import pl.pjatk.mas.project.control.entity.enums.DocumentType;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,6 @@ public class AttenderDTO {
     private LocalDate birthdate;
     private String name;
     private String surname;
-    private Attender.DocumentType documentType;
+    private DocumentType documentType;
     private String documentNumber;
 }

@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.pjatk.ipb.project.control.dao.UserDAO;
-import pl.pjatk.ipb.project.control.entity.UserEntity;
+import pl.pjatk.mas.project.control.dao.UserDAO;
+import pl.pjatk.mas.project.control.entity.UserEntity;
 
 import javax.transaction.Transactional;
 
