@@ -9,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.pjatk.mas.project.boundary.dto.AdminDTO;
-import pl.pjatk.mas.project.boundary.dto.ClientDTO;
-import pl.pjatk.mas.project.boundary.dto.LoginDTO;
-import pl.pjatk.mas.project.boundary.dto.UserDTO;
+import pl.pjatk.mas.project.boundary.dto.*;
 import pl.pjatk.mas.project.control.dao.AdminDAO;
 import pl.pjatk.mas.project.control.dao.ClientDAO;
 import pl.pjatk.mas.project.control.entity.AdminEntity;
@@ -23,6 +20,8 @@ import pl.pjatk.mas.project.control.mapper.ProjectMapper;
 import pl.pjatk.mas.project.control.security.JwtTokenProvider;
 import pl.pjatk.mas.project.control.security.UserPrincipal;
 import pl.pjatk.mas.project.control.service.AuthService;
+
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -68,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ClientDTO registerClient(ClientDTO registerDto) {
+    public ClientDTO registerClient(RegisterDTO registerDto) {
         log.info("Register data: {}", registerDto);
         ClientEntity clientEntity = mapper.clientEntityFromDto(registerDto);
         clientEntity.setPassword(passwordEncoder.encode(clientEntity.getPassword()));
@@ -85,11 +84,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AdminDTO registerAdmin(AdminDTO registerDto) {
+    public AdminDTO registerAdmin(RegisterDTO registerDto) {
         log.info("Register data: {}", registerDto);
         AdminEntity adminEntity = mapper.adminEntityFromDto(registerDto);
         adminEntity.setPassword(passwordEncoder.encode(adminEntity.getPassword()));
         adminEntity.setRole(UserRole.ADMIN);
+        adminEntity.setIdentifier(UUID.randomUUID().toString());
 
         adminEntity = adminDao.save(adminEntity);
 

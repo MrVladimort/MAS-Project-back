@@ -3,6 +3,8 @@ package pl.pjatk.mas.project.control.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -30,11 +32,17 @@ public class LocalizationEntity  extends AuditingEntity {
     @Column(name = "BUILDING_NUMBER", nullable = false)
     private String buildingNumber;
 
+    @OneToMany(targetEntity = EventEntity.class, mappedBy = "localization")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<EventEntity> interviews = new HashSet<>();
+
     @Builder
-    public LocalizationEntity(String text, String city, String street, String buildingNumber) {
+    public LocalizationEntity(String text, String city, String street, String buildingNumber, Set<EventEntity> interviews) {
         this.text = text;
         this.city = city;
         this.street = street;
         this.buildingNumber = buildingNumber;
+        this.interviews = interviews;
     }
 }

@@ -4,6 +4,8 @@ import lombok.*;
 import pl.pjatk.mas.project.control.entity.enums.EventType;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,13 +24,23 @@ public class PromotionEntity extends AuditingEntity {
     @Column(name = "DISCOUNT_PERCENT")
     private Integer discountPercent;
 
+    @Column(name = "EVENT_TYPES")
     @Enumerated(EnumType.STRING)
-    @Column(name = "EVENT_TYPE")
-    private EventType type;
+    @ElementCollection
+    private Set<EventType> types = new HashSet<>();
+
+    @ManyToOne(targetEntity = ClientEntity.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ClientEntity client;
 
     @Builder
-    public PromotionEntity(Integer discountPercent, EventType type) {
+    public PromotionEntity(Integer discountPercent, Set<EventType> types, ClientEntity client) {
         this.discountPercent = discountPercent;
-        this.type = type;
+        this.types = types;
+        this.client = client;
     }
 }

@@ -29,10 +29,37 @@ public class TicketEntity extends AuditingEntity {
     @Column(name = "PRICE", nullable = false)
     private Double price;
 
+    @ManyToOne(targetEntity = EventEntity.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "EVENT_ID", referencedColumnName = "EVENT_ID")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private EventEntity event;
+
+    @ManyToOne(targetEntity = AttenderEntity.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "ATTENDER_ID", referencedColumnName = "ATTENDER_ID")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AttenderEntity attender;
+
+    @ManyToOne(targetEntity = OrderEntity.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderEntity order;
+
     @Builder
-    public TicketEntity(Integer placeNumber, TicketType type, Double price) {
+    public TicketEntity(Integer placeNumber, TicketType type, Double price, EventEntity event, AttenderEntity attender, OrderEntity order) {
         this.placeNumber = placeNumber;
         this.type = type;
         this.price = price;
+        this.event = event;
+        this.attender = attender;
+        this.order = order;
     }
 }
