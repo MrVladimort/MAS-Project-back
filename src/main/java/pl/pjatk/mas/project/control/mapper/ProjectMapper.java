@@ -19,7 +19,7 @@ public abstract class ProjectMapper {
     LocalDateTime map(Instant value) {
         return LocalDateTime.ofInstant(value, ZoneOffset.UTC);
     }
-
+    
     public abstract ClientEntity clientEntityFromDto(ClientDTO dto);
     public abstract ClientEntity clientEntityFromDto(RegisterDTO dto);
     public abstract ClientDTO clientDtoFromEntity(ClientEntity dto);
@@ -55,10 +55,18 @@ public abstract class ProjectMapper {
     @Mapping(source = "createdAt", target = "createdAt")
     public abstract OrderDTO orderEntityToDto(OrderEntity entity);
 
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "tickets", ignore = true)
+    public abstract OrderEntity orderDtoToEntity(OrderDTO dto);
+
     @Mappings({
             @Mapping(source = "event.name", target = "eventName"),
             @Mapping(source = "event.id", target = "eventId"),
             @Mapping(source = "event.dateTime", target = "eventDate")
     })
     public abstract TicketDTO ticketEntityToDto(TicketEntity entity);
+    public abstract TicketEntity ticketDtoToEntity(TicketDTO entity);
+
+    public abstract AttenderDTO attenderEntityToDto(AttenderEntity entity);
+    public abstract AttenderEntity attenderDtoToEntity(AttenderDTO entity);
 }

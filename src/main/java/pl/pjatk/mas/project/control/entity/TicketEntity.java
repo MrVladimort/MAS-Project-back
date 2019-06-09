@@ -27,7 +27,7 @@ public class TicketEntity extends AuditingEntity {
     private TicketType type;
 
     @Column(name = "PRICE", nullable = false)
-    private Double price;
+    private Integer price;
 
     @ManyToOne(targetEntity = EventEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "EVENT_ID", referencedColumnName = "EVENT_ID")
@@ -45,8 +45,14 @@ public class TicketEntity extends AuditingEntity {
     @EqualsAndHashCode.Exclude
     private OrderEntity order;
 
+    public void addEvent(EventEntity entity) {
+        setPlaceNumber(entity.getTickets().size() + 1);
+        setEvent(entity);
+        entity.getTickets().add(this);
+    }
+
     @Builder
-    public TicketEntity(Integer placeNumber, TicketType type, Double price, EventEntity event, AttenderEntity attender, OrderEntity order) {
+    public TicketEntity(Integer placeNumber, TicketType type, Integer price, EventEntity event, AttenderEntity attender, OrderEntity order) {
         this.placeNumber = placeNumber;
         this.type = type;
         this.price = price;

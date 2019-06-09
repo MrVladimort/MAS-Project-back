@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 public class AttenderDTO {
+    private Long id;
     private Integer age;
     private LocalDate birthdate;
     private String name;
@@ -20,7 +21,8 @@ public class AttenderDTO {
     private String documentNumber;
 
     @Builder
-    public AttenderDTO(Integer age, LocalDate birthdate, String name, String surname, DocumentType documentType, String documentNumber) {
+    public AttenderDTO(Long id, Integer age, LocalDate birthdate, String name, String surname, DocumentType documentType, String documentNumber) {
+        this.id = id;
         this.age = age;
         this.birthdate = birthdate;
         this.name = name;

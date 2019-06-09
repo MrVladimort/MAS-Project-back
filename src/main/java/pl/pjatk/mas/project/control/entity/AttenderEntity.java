@@ -5,6 +5,7 @@ import pl.pjatk.mas.project.control.entity.enums.DocumentType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,10 @@ public class AttenderEntity extends PersonEntity {
 
     @Column(name = "BIRTHDATE", nullable = false)
     private LocalDate birthdate;
+
+    public Integer getAge() {
+        return Period.between(birthdate, LocalDate.now()).getYears();
+    }
 
     @Column(name = "DOCUMENT_NUMBER", nullable = false)
     private String documentNumber;

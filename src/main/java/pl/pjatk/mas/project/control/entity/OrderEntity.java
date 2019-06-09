@@ -1,5 +1,6 @@
 package pl.pjatk.mas.project.control.entity;
 
+import io.swagger.models.auth.In;
 import lombok.*;
 import pl.pjatk.mas.project.control.entity.enums.OrderStatus;
 
@@ -28,7 +29,7 @@ public class OrderEntity  extends AuditingEntity {
     private OrderStatus status;
 
     @Column(name = "TOTAL_PRICE", nullable = false) // Include promotions
-    private Double totalPrice;
+    private Integer totalPrice;
 
     @OneToMany(targetEntity = TicketEntity.class, mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
@@ -49,7 +50,7 @@ public class OrderEntity  extends AuditingEntity {
     }
 
     @Builder
-    public OrderEntity(OrderStatus status, Double totalPrice, ClientEntity client) {
+    public OrderEntity(OrderStatus status, Integer totalPrice, ClientEntity client) {
         this.status = status;
         this.totalPrice = totalPrice;
         this.client = client;

@@ -152,10 +152,10 @@ public class DbSeeder {
 
         commentDao.saveAll(List.of(comment, comment2, comment3));
 
-        TicketEntity ticket = TicketEntity.builder().attender(attender).event(event).placeNumber(1).price(100.).type(TicketType.REGULAR).build();
-        TicketEntity ticket2 = TicketEntity.builder().attender(attender2).event(event).placeNumber(2).price(100.).type(TicketType.REGULAR).build();
+        TicketEntity ticket = TicketEntity.builder().attender(attender).event(event).placeNumber(1).price(100).type(TicketType.REGULAR).build();
+        TicketEntity ticket2 = TicketEntity.builder().attender(attender2).event(event).placeNumber(2).price(100).type(TicketType.REGULAR).build();
 
-        OrderEntity order = OrderEntity.builder().status(OrderStatus.PAID).client(client).totalPrice(170.).build();
+        OrderEntity order = OrderEntity.builder().status(OrderStatus.PAID).client(client).totalPrice(170).build();
         order.addTicket(ticket);
         order.addTicket(ticket2);
 
@@ -164,9 +164,9 @@ public class DbSeeder {
         log.info("Order data: {}", order);
 
 
-        TicketEntity ticket3 = TicketEntity.builder().attender(attender).event(event2).placeNumber(1).price(200.).type(TicketType.REGULAR).build();
+        TicketEntity ticket3 = TicketEntity.builder().attender(attender).event(event2).placeNumber(1).price(200).type(TicketType.REGULAR).build();
 
-        OrderEntity order2 = OrderEntity.builder().status(OrderStatus.PAID).client(client).totalPrice(200.).build();
+        OrderEntity order2 = OrderEntity.builder().status(OrderStatus.PAID).client(client).totalPrice(200).build();
         order2.addTicket(ticket3);
         log.info("Order data: {}", order2);
         orderDao.save(order2);

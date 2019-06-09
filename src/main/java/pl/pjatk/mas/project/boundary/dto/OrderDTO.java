@@ -18,10 +18,10 @@ public class OrderDTO {
     private ClientDTO client;
     private OrderStatus status;
     private LocalDateTime createdAt;
-    private Double totalPrice;
+    private Integer totalPrice;
 
     @Builder
-    public OrderDTO(Long id, List<TicketDTO> tickets, ClientDTO client, OrderStatus status, LocalDateTime createdAt, Double totalPrice) {
+    public OrderDTO(Long id, List<TicketDTO> tickets, ClientDTO client, OrderStatus status, LocalDateTime createdAt, Integer totalPrice) {
         this.id = id;
         this.tickets = tickets;
         this.client = client;

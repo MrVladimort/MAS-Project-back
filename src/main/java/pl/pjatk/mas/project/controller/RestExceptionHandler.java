@@ -45,6 +45,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex));
     }
 
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @ExceptionHandler(SomeException.class)
+    protected ResponseEntity<Object> handleSome(SomeException ex) {
+        log.debug("Ty teapot bro", ex);
+        return buildResponseEntity(new ApiError(HttpStatus.I_AM_A_TEAPOT, ex));
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     protected ResponseEntity<Object> handleIllegalArgument(EntityNotFoundException ex) {
