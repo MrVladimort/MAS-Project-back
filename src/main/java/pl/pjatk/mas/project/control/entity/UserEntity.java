@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,17 +27,21 @@ public abstract class UserEntity extends PersonEntity {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<CommentEntity> comments = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "USER_ROLES",
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity(String name, String surname, String email, String password, Set<RoleEntity> roles) {
+    public UserEntity(String name, String surname, String email, String password) {
         super(name, surname);
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
 

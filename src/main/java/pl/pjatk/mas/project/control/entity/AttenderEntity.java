@@ -30,7 +30,7 @@ public class AttenderEntity extends PersonEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "DOCUMENT_TYPE", nullable = false)
-    private DocumentType street;
+    private DocumentType documentType;
 
     @OneToMany(
             targetEntity = TicketEntity.class,
@@ -41,21 +41,18 @@ public class AttenderEntity extends PersonEntity {
     @EqualsAndHashCode.Exclude
     private Set<TicketEntity> tickets = new HashSet<>();
 
-    @ManyToOne(targetEntity = ClientEntity.class,
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ClientEntity client;
 
     @Builder
-    public AttenderEntity(String name, String surname, LocalDate birthdate, String documentNumber, DocumentType street, Set<TicketEntity> tickets, ClientEntity client) {
+    public AttenderEntity(String name, String surname, LocalDate birthdate, String documentNumber, DocumentType documentType, ClientEntity client) {
         super(name, surname);
         this.birthdate = birthdate;
         this.documentNumber = documentNumber;
-        this.street = street;
-        this.tickets = tickets;
+        this.documentType = documentType;
         this.client = client;
     }
 }

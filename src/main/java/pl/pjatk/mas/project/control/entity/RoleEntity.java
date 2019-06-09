@@ -24,4 +24,9 @@ public class RoleEntity {
     @NaturalId
     @Column(length = 60)
     private Role name;
+
+    @Builder
+    public RoleEntity(Role name) {
+        this.name = name;
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,21 +20,14 @@ public class ClientEntity extends UserEntity {
     @Column(name = "ADDRESS")
     private String address;
 
-    @OneToMany(
-            targetEntity = AttenderEntity.class,
-            mappedBy = "client",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = AttenderEntity.class, mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<AttenderEntity> attenders = new HashSet<>();
 
-    @OneToMany(
-            targetEntity = PromotionEntity.class,
-            mappedBy = "client",
+    @OneToMany(targetEntity = PromotionEntity.class, mappedBy = "client",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<PromotionEntity> promotions = new HashSet<>();
 
@@ -47,13 +40,19 @@ public class ClientEntity extends UserEntity {
     @EqualsAndHashCode.Exclude
     private Set<OrderEntity> orders = new HashSet<>();
 
+    public void addPromotion(PromotionEntity promotion) {
+        promotions.add(promotion);
+        promotion.setClient(this);
+    }
+
+    public void removeArtist(TicketEntity ticket) {
+
+    }
+
     @Builder
-    public ClientEntity(String name, String surname, String email, String password, Set<RoleEntity> roles, String phone, String address, Set<AttenderEntity> attenders, Set<PromotionEntity> promotions, Set<OrderEntity> orders) {
-        super(name, surname, email, password, roles);
+    public ClientEntity(String name, String surname, String email, String password, String phone, String address) {
+        super(name, surname, email, password);
         this.phone = phone;
         this.address = address;
-        this.attenders = attenders;
-        this.promotions = promotions;
-        this.orders = orders;
     }
 }

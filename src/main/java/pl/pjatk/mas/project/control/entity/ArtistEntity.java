@@ -31,14 +31,17 @@ public class ArtistEntity extends AuditingEntity {
     @Column(name = "TYPE", nullable = false)
     private ArtistType type;
 
-    @OneToMany(mappedBy = "artist")
+    @OneToMany(mappedBy = "artist",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<EventArtistEntity> events = new HashSet<>();
 
     @Builder
-    public ArtistEntity(String name, String style, ArtistType type, Set<EventArtistEntity> events) {
+    public ArtistEntity(String name, String style, ArtistType type) {
         this.name = name;
         this.style = style;
         this.type = type;
-        this.events = events;
     }
 }

@@ -9,9 +9,17 @@ import pl.pjatk.mas.project.control.entity.enums.ArtistType;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class ArtistDTO {
+    private Long id;
     private String name;
     private String style;
     private ArtistType type;
+
+    @Builder
+    public ArtistDTO(Long id, String name, String style, ArtistType type) {
+        this.id = id;
+        this.name = name;
+        this.style = style;
+        this.type = type;
+    }
 }

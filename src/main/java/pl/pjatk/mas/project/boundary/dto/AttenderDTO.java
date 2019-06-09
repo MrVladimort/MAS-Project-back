@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class AttenderDTO {
     private Integer age;
     private LocalDate birthdate;
@@ -19,4 +18,14 @@ public class AttenderDTO {
     private String surname;
     private DocumentType documentType;
     private String documentNumber;
+
+    @Builder
+    public AttenderDTO(Integer age, LocalDate birthdate, String name, String surname, DocumentType documentType, String documentNumber) {
+        this.age = age;
+        this.birthdate = birthdate;
+        this.name = name;
+        this.surname = surname;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
+    }
 }

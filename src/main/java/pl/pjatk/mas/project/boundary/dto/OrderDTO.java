@@ -12,10 +12,21 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class OrderDTO {
+    private Long id;
     private List<TicketDTO> tickets;
+    private ClientDTO client;
     private OrderStatus status;
-    private LocalDateTime dateTime;
+    private LocalDateTime createdAt;
     private Double totalPrice;
+
+    @Builder
+    public OrderDTO(Long id, List<TicketDTO> tickets, ClientDTO client, OrderStatus status, LocalDateTime createdAt, Double totalPrice) {
+        this.id = id;
+        this.tickets = tickets;
+        this.client = client;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.totalPrice = totalPrice;
+    }
 }

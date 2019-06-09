@@ -3,6 +3,7 @@ package pl.pjatk.mas.project.control.service.impl;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,7 +36,8 @@ public class AuthServiceImpl implements AuthService {
     @NonNull RoleDAO roleDao;
     @NonNull AuthenticationManager authenticationManager;
     @NonNull JwtTokenProvider tokenProvider;
-    @NonNull private ProjectMapper mapper;
+    @NonNull
+    private ProjectMapper mapper;
     @NonNull PasswordEncoder passwordEncoder;
 
     @Override

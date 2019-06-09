@@ -28,18 +28,23 @@ public class CommentEntity  extends AuditingEntity {
     @Max(5)
     private Integer grade;
 
-    @ManyToOne(targetEntity = EventEntity.class,
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EVENT_ID", referencedColumnName = "EVENT_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private EventEntity event;
 
+    @ManyToOne
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserEntity user;
+
     @Builder
-    public CommentEntity(String text, @Min(1) @Max(5) Integer grade, EventEntity event) {
+    public CommentEntity(String text, @Min(1) @Max(5) Integer grade, EventEntity event, UserEntity user) {
         this.text = text;
         this.grade = grade;
         this.event = event;
+        this.user = user;
     }
 }

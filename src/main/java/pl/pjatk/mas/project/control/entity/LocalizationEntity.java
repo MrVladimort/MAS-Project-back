@@ -21,7 +21,7 @@ public class LocalizationEntity  extends AuditingEntity {
     private Long id;
 
     @Column(name = "NAME", unique = true)
-    private String text;
+    private String name;
 
     @Column(name = "CITY", nullable = false)
     private String city;
@@ -32,17 +32,16 @@ public class LocalizationEntity  extends AuditingEntity {
     @Column(name = "BUILDING_NUMBER", nullable = false)
     private String buildingNumber;
 
-    @OneToMany(targetEntity = EventEntity.class, mappedBy = "localization")
+    @OneToMany(targetEntity = EventEntity.class, mappedBy = "localization", cascade = CascadeType.MERGE)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<EventEntity> interviews = new HashSet<>();
+    private Set<EventEntity> events = new HashSet<>();
 
     @Builder
-    public LocalizationEntity(String text, String city, String street, String buildingNumber, Set<EventEntity> interviews) {
-        this.text = text;
+    public LocalizationEntity(String name, String city, String street, String buildingNumber) {
+        this.name = name;
         this.city = city;
         this.street = street;
         this.buildingNumber = buildingNumber;
-        this.interviews = interviews;
     }
 }

@@ -9,10 +9,19 @@ import javax.persistence.Column;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class LocalizationDTO {
-    private String text;
+    private Long id;
+    private String name;
     private String city;
     private String street;
     private String buildingNumber;
+
+    @Builder
+    public LocalizationDTO(Long id, String name, String city, String street, String buildingNumber) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.street = street;
+        this.buildingNumber = buildingNumber;
+    }
 }

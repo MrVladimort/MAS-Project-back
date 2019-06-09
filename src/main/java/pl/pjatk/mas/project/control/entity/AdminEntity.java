@@ -18,8 +18,8 @@ public class AdminEntity extends UserEntity {
     private String identifier;
 
     @Builder
-    public AdminEntity(String name, String surname, String email, String password, Set<RoleEntity> roles, String identifier) {
-        super(name, surname, email, password, roles);
+    public AdminEntity(String name, String surname, String email, String password, String identifier) {
+        super(name, surname, email, password);
         this.identifier = identifier;
     }
 }
