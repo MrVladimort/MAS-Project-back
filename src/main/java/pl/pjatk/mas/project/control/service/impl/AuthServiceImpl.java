@@ -76,16 +76,16 @@ public class AuthServiceImpl implements AuthService {
     public ClientDTO registerClient(RegisterDTO registerDto) {
         log.info("Register data: {}", registerDto);
         ClientEntity clientEntity = mapper.clientEntityFromDto(registerDto);
-        clientEntity.setPassword(passwordEncoder.encode(clientEntity.getPassword()));
+        clientEntity.getUser().setPassword(passwordEncoder.encode(clientEntity.getUser().getPassword()));
 
         RoleEntity clientRole = roleDao.findByName(Role.CLIENT)
                 .orElseThrow(EntityNotFoundException::new);
 
-        clientEntity.setRoles(Collections.singleton(clientRole));
+        clientEntity.getUser().setRoles(Collections.singleton(clientRole));
 
         clientEntity = clientDao.save(clientEntity);
 
-        String jwt = tokenProvider.generateToken(mapper.principalFromEntity(clientEntity));
+        String jwt = tokenProvider.generateToken(mapper.principalFromEntity(clientEntity.getUser()));
 
         ClientDTO candidateDto = mapper.clientDtoFromEntity(clientEntity);
         candidateDto.setAccessToken(jwt);
@@ -97,17 +97,17 @@ public class AuthServiceImpl implements AuthService {
     public AdminDTO registerAdmin(RegisterDTO registerDto) {
         log.info("Register data: {}", registerDto);
         AdminEntity adminEntity = mapper.adminEntityFromDto(registerDto);
-        adminEntity.setPassword(passwordEncoder.encode(adminEntity.getPassword()));
+        adminEntity.getUser().setPassword(passwordEncoder.encode(adminEntity.getUser().getPassword()));
         RoleEntity adminRole = roleDao.findByName(Role.ADMIN)
                 .orElseThrow(EntityNotFoundException::new);
 
-        adminEntity.setRoles(Collections.singleton(adminRole));
+        adminEntity.getUser().setRoles(Collections.singleton(adminRole));
 
         adminEntity.setIdentifier(UUID.randomUUID().toString());
 
         adminEntity = adminDao.save(adminEntity);
 
-        String jwt = tokenProvider.generateToken(mapper.principalFromEntity(adminEntity));
+        String jwt = tokenProvider.generateToken(mapper.principalFromEntity(adminEntity.getUser()));
 
         AdminDTO adminDto = mapper.adminDtoFromEntity(adminEntity);
         adminDto.setAccessToken(jwt);

@@ -1,6 +1,7 @@
 package pl.pjatk.mas.project.control.entity;
 
 import lombok.*;
+import org.h2.engine.User;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,17 +9,27 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@EqualsAndHashCode
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ClientEntity extends UserEntity {
+public class ClientEntity {
+    @Id
+    @Column(name = "CLIENT_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENT_SQ")
+    @SequenceGenerator(name = "CLIENT_SQ", sequenceName = "CLIENTS_SEQ", allocationSize = 1)
+    private Long id;
+
     @Column(name = "PHONE", nullable = false)
     private String phone;
 
     @Column(name = "ADDRESS")
     private String address;
+
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = UserEntity.class)
+    @ToString.Exclude
+    private UserEntity user;
 
     @OneToMany(targetEntity = AttenderEntity.class, mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -50,9 +61,9 @@ public class ClientEntity extends UserEntity {
     }
 
     @Builder
-    public ClientEntity(String name, String surname, String email, String password, String phone, String address) {
-        super(name, surname, email, password);
+    public ClientEntity(String phone, String address, UserEntity user) {
         this.phone = phone;
         this.address = address;
+        this.user = user;
     }
 }

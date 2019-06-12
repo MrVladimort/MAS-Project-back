@@ -13,8 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class UserEntity extends PersonEntity {
+public class UserEntity extends PersonEntity {
     @Id
     @Column(name = "USER_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SQ")
@@ -27,6 +26,12 @@ public abstract class UserEntity extends PersonEntity {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = ClientEntity.class)
+    ClientEntity client;
+
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = AdminEntity.class)
+    AdminEntity admin;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -38,11 +43,22 @@ public abstract class UserEntity extends PersonEntity {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity(String name, String surname, String email, String password) {
+    public void addClient(ClientEntity clientEntity) {
+        this.setClient(clientEntity);
+        clientEntity.setUser(this);
+    }
+
+    public void addAdmin(AdminEntity adminEntity) {
+        this.setAdmin(adminEntity);
+        adminEntity.setUser(this);
+    }
+
+    @Builder
+    public UserEntity(String name, String surname, String email, String password, ClientEntity client, AdminEntity admin) {
         super(name, surname);
         this.email = email;
         this.password = password;
+        this.client = client;
+        this.admin = admin;
     }
-
-
 }

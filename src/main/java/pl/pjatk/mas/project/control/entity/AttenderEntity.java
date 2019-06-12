@@ -47,7 +47,7 @@ public class AttenderEntity extends PersonEntity {
     private Set<TicketEntity> tickets = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ClientEntity client;

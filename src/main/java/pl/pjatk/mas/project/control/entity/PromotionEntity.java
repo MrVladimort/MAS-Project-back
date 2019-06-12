@@ -27,7 +27,7 @@ public class PromotionEntity extends AuditingEntity {
     private EventType type;
 
     @ManyToOne(targetEntity = ClientEntity.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private ClientEntity client;

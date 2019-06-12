@@ -36,7 +36,7 @@ public class OrderEntity  extends AuditingEntity {
     private Set<TicketEntity> tickets = new HashSet<>();
 
     @ManyToOne(targetEntity = ClientEntity.class)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
     @EqualsAndHashCode.Exclude
     private ClientEntity client;
 

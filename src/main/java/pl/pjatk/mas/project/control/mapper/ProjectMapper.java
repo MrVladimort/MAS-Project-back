@@ -19,13 +19,47 @@ public abstract class ProjectMapper {
     LocalDateTime map(Instant value) {
         return LocalDateTime.ofInstant(value, ZoneOffset.UTC);
     }
-    
+
+    @Mappings({
+            @Mapping(source = "name", target = "user.name"),
+            @Mapping(source = "surname", target = "user.surname"),
+            @Mapping(source = "email", target = "user.email"),
+    })
     public abstract ClientEntity clientEntityFromDto(ClientDTO dto);
+
+    @Mappings({
+            @Mapping(source = "name", target = "user.name"),
+            @Mapping(source = "surname", target = "user.surname"),
+            @Mapping(source = "email", target = "user.email"),
+    })
     public abstract ClientEntity clientEntityFromDto(RegisterDTO dto);
+
+    @Mappings({
+            @Mapping(target = "name", source = "user.name"),
+            @Mapping(target = "surname", source = "user.surname"),
+            @Mapping(target = "email", source = "user.email"),
+    })
     public abstract ClientDTO clientDtoFromEntity(ClientEntity dto);
 
+    @Mappings({
+            @Mapping(source = "name", target = "user.name"),
+            @Mapping(source = "surname", target = "user.surname"),
+            @Mapping(source = "email", target = "user.email"),
+    })
     public abstract AdminEntity adminEntityFromDto(AdminDTO dto);
+
+    @Mappings({
+            @Mapping(source = "name", target = "user.name"),
+            @Mapping(source = "surname", target = "user.surname"),
+            @Mapping(source = "email", target = "user.email"),
+    })
     public abstract AdminEntity adminEntityFromDto(RegisterDTO dto);
+
+    @Mappings({
+            @Mapping(target = "name", source = "user.name"),
+            @Mapping(target = "surname", source = "user.surname"),
+            @Mapping(target = "email", source = "user.email"),
+    })
     public abstract AdminDTO adminDtoFromEntity(AdminEntity dto);
 
     public abstract UserDTO userDtoFromPrincipal(UserPrincipal entity);

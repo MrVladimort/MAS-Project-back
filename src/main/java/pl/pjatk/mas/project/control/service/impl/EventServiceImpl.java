@@ -14,9 +14,7 @@ import pl.pjatk.mas.project.control.mapper.ProjectMapper;
 import pl.pjatk.mas.project.control.service.EventService;
 import pl.pjatk.mas.project.controller.exceptions.EntityNotFoundException;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -29,12 +27,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDTO> getAllEvents() {
-        List<EventEntity> interviewEntities = StreamSupport.stream(eventDao.findAll().spliterator(), false).collect(Collectors.toList());
+        List<EventEntity> interviewEntities = new ArrayList<>(eventDao.findAll());
 
         log.info("Events: {}", interviewEntities);
 
         return interviewEntities.stream()
                 .map(mapper::eventEntityToDto)
+                .sorted(Comparator.comparing(EventDTO::getId).reversed())
                 .collect(Collectors.toList());
     }
 
